@@ -3,26 +3,32 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new Tutorial
-    router.post("/create", books.create);
+    // Create a new Book
+    router.post("/", books.create);
 
-    // Retrieve all Tutorials
-    router.get("/find", books.findAll);
+    // Retrieve all Books
+    router.get("/g", books.findAll);
 
     //   // Retrieve all published Tutorials
     //   router.get("/published", books.findAllPublished);
+    router.get("/react", books.findReact);
+    router.get("/java", books.findJava);
+    router.get("/css", books.findCss);
+    router.get("/fullstack", books.findFullstack);
+    router.get("/html", books.findHtml);
+    //   // Retrieve a single Book with id
+    router.get("/:id", books.findOne);
 
-    //   // Retrieve a single Tutorial with id
-    //   router.get("/:id", books.findOne);
 
-    //   // Update a Tutorial with id
-    //   router.put("/:id", books.update);
 
-    //   // Delete a Tutorial with id
-    //   router.delete("/:id", books.delete);
+    // Update a Book with id
+    router.put("/:id", books.update);
+
+    //   // Delete a Book with id
+    router.delete("/:id", books.delete);
 
     //   // Create a new Tutorial
     //   router.delete("/", books.deleteAll);
 
-    app.use('/api/book', router);
+    app.use('/api/books', router);
 };

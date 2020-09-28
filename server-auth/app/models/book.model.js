@@ -1,8 +1,8 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema(
         {
+            title: String,
             category: String,
-            bookTitle: String,
             price: Number,
             author: String,
             publisher: String,
@@ -17,6 +17,6 @@ module.exports = mongoose => {
         return object;
     });
 
-    const Tutorial = mongoose.model("tutorial", schema);
-    return Tutorial;
+    const Book = mongoose.model("book", schema);
+    return Book;
 };

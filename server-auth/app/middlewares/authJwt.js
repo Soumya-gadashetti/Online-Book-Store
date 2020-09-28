@@ -29,6 +29,7 @@ isAdmin = (req, res, next) => {
 
         Role.find(
             {
+                //The $in operator selects the documents where the value of a field equals any value in the specified array
                 _id: { $in: user.roles }
             },
             (err, roles) => {
