@@ -12,16 +12,19 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
-
+import Cart from "./components/cartcomponent";
+import { BooksList } from "./components/book-list.component";
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.logOut = this.logOut.bind(this);
-
+        // contextType = BooksList;
         this.state = {
             showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined,
+            cart: []
         };
     }
 
@@ -43,7 +46,7 @@ class App extends Component {
 
     render() {
         const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
+        // const { cart } = this.context;
         return (
             <div>
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -52,8 +55,8 @@ class App extends Component {
           </Link>
                     <div className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to={"/home"} className="nav-link">
-                                Home
+                            <Link to={"/"} className="nav-link">
+                                BookList
               </Link>
                         </li>
 
@@ -90,7 +93,7 @@ class App extends Component {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={this.logOut}>
+                                <a href="/" className="nav-link" onClick={this.logOut}>
                                     LogOut
                 </a>
                             </li>
@@ -110,17 +113,25 @@ class App extends Component {
                                 </li>
                             </div>
                         )}
+                    <li className="nav-item">
+                        {/* <span>{cart.length}</span> */}
+                        <Link to={"/cart"} className="nav-link">
+                            Cart
+                            </Link>
+                    </li>
+
                 </nav>
 
                 <div className="container mt-3">
                     <Switch>
-                        <Route exact path={["/", "/home"]} component={Home} />
+                        <Route exact path={"/"} component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/profile" component={Profile} />
                         <Route path="/user" component={BoardUser} />
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
+                        <Route path="/cart" component={Cart} />
                     </Switch>
                 </div>
             </div>
