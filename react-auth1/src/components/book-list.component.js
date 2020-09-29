@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import BookDataService from "../services/book.service";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-class BooksList extends Component {
+export default class BooksList extends Component {
     constructor(props) {
         super(props);
 
@@ -17,14 +17,6 @@ class BooksList extends Component {
     }
 
     //New from old one
-    addCart = (id) => {
-        const { books, cart } = this.state;
-        const data = books.filter(book => {
-            return book._id === id
-        })
-        this.setState({ cart: [...cart, ...data] })
-
-    }
 
     addC() {
         console.log("Cart");
@@ -35,12 +27,25 @@ class BooksList extends Component {
             this.setState({
                 books: res.data
             });
-            console.log(Response.data);
+            console.log(res.data);
         })
             .catch(e => {
                 console.log(e);
             });
     }
+
+    addCart = (id) => {
+        const { books, cart } = this.state;
+        const data = books.filter(book => {
+            return book.id === id
+        })
+        this.setState({ cart: [...cart, ...data] })
+        console.log(cart);
+        // console.log(data);
+        // console.log("add");
+        // console.log(cart);
+    }
+
 
     render() {
         console.log(this.state);
@@ -65,7 +70,7 @@ class BooksList extends Component {
                                         <p className="card-text"><strong>Book Description:</strong>&nbsp;{book.description}</p>
                                         <a class="btn btn-danger">Buy</a>
                                         {/* <a class="btn btn-success float-right">Add to Cart</a> */}
-                                        <button onClick={() => this.addCart(book._id)}>Add to cart</button>
+                                        <button onClick={() => this.addCart(book.id)}>Add to cart</button>
                                         {/* <Link to="/cart" className="cart">Cart</Link> */}
                                     </div>
                                 </div>
@@ -78,7 +83,7 @@ class BooksList extends Component {
     }
 }
 
-export default BooksList;
+
 
 
 //     constructor(props) {

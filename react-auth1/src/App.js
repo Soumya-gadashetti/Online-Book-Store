@@ -13,7 +13,9 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import Cart from "./components/cartcomponent";
-import { BooksList } from "./components/book-list.component";
+import FullstackBooksList from "./components/fullstackBooksList.component";
+import AddBook from "./components/addBook.component";
+
 class App extends Component {
 
     constructor(props) {
@@ -58,6 +60,16 @@ class App extends Component {
                             <Link to={"/"} className="nav-link">
                                 BookList
               </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/full"} className="nav-link">
+                                Full stack
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/add"} className="nav-link">
+                                addBook
+                            </Link>
                         </li>
 
                         {showModeratorBoard && (
@@ -120,11 +132,13 @@ class App extends Component {
                             </Link>
                     </li>
 
+
                 </nav>
 
                 <div className="container mt-3">
                     <Switch>
-                        <Route exact path={"/"} component={Home} />
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/add" component={AddBook} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/profile" component={Profile} />
@@ -132,6 +146,7 @@ class App extends Component {
                         <Route path="/mod" component={BoardModerator} />
                         <Route path="/admin" component={BoardAdmin} />
                         <Route path="/cart" component={Cart} />
+                        <Route path="/full" component={FullstackBooksList} />
                     </Switch>
                 </div>
             </div>
