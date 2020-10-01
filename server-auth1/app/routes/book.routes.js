@@ -11,11 +11,7 @@ module.exports = app => {
 
     //   // Retrieve all published Tutorials
     //   router.get("/published", books.findAllPublished);
-    router.get("/react", books.findReact);
-    router.get("/java", books.findJava);
-    router.get("/css", books.findCss);
-    router.get("/fullstack", books.findFullstack);
-    router.get("/html", books.findHtml);
+    router.get("/category", books.findCategory);
     //   // Retrieve a single Book with id
     router.get("/:id", books.findOne);
 

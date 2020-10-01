@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-
+var cartroutes = require('./app/routes/cart.routes');
 var corsOptions = {
     origin: "http://localhost:8081"
 };
@@ -39,15 +39,15 @@ function initial() {
                 console.log("added 'user' to roles collection");
             });
 
-            new Role({
-                name: "moderator"
-            }).save(err => {
-                if (err) {
-                    console.log("error", err);
-                }
+            // new Role({
+            //     name: "moderator"
+            // }).save(err => {
+            //     if (err) {
+            //         console.log("error", err);
+            //     }
 
-                console.log("added 'moderator' to roles collection");
-            });
+            //     console.log("added 'moderator' to roles collection");
+            // });
 
             new Role({
                 name: "admin"
@@ -74,7 +74,9 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
-require('./app/routes/book.routes')(app);
+//require('./app/routes/cart.routes')(app);
+app.use('/cart', cartroutes);
+// require('./app/routes/book.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

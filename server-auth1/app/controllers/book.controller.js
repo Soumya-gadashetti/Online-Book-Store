@@ -72,11 +72,10 @@ exports.findOne = (req, res) => {
 };
 
 // Find all the books based on category
-exports.findReact = (req, res) => {
-    // const category = req.params.category;
+exports.findAll = (req, res) => {
+    const category = req.query.category;
     // console.log(category);
-    // var condition = category ? { ticategorytle: { $regex: `^${category}.*`, $options: "si" } } : {};
-    var condition = { category: "React" }
+    var condition = category ? { category: { $regex: new RegExp(category), $options: "i" } } : {};
     Book.find(condition)
         .then(data => {
             res.send(data);
@@ -89,8 +88,10 @@ exports.findReact = (req, res) => {
         });
 };
 
-exports.findJava = (req, res) => {
-    var condition = { category: "Java" }
+exports.findAll = (req, res) => {
+    const author = req.query.author;
+    // console.log(category);
+    var condition = author ? { author: { $regex: new RegExp(author), $options: "i" } } : {};
     Book.find(condition)
         .then(data => {
             res.send(data);
@@ -102,48 +103,6 @@ exports.findJava = (req, res) => {
             });
         });
 };
-exports.findCss = (req, res) => {
-    var condition = { category: "CSS" }
-    Book.find(condition)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Books."
-            });
-        });
-};
-
-exports.findFullstack = (req, res) => {
-    var condition = { category: "Full Stact Developer" }
-    Book.find(condition)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Books."
-            });
-        });
-};
-
-exports.findHtml = (req, res) => {
-    var condition = { category: "HTML" }
-    Book.find(condition)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Books."
-            });
-        });
-};
-
 
 
 // // Update a Book by the id in the request

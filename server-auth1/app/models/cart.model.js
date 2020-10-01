@@ -1,23 +1,12 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
-        {
-            title: String,
-            category: String,
-            price: Number,
-            quantity: Number,
-            author: String,
-            publisher: String,
-            description: String
-        },
-        { timestamps: true }
-    );
+var mongoose = require('mongoose');
+var schema = mongoose.Schema(
+    {
+        book: Object,
+        quantity: Number,
+        username: String,
+        totoalPrice: Number
+    }
 
-    schema.method("toJSON", function () {
-        const { __v, _id, ...object } = this.toObject();
-        object.id = _id;
-        return object;
-    });
+);
 
-    const Cart = mongoose.model("cart", schema);
-    return Cart;
-};
+module.exports = mongoose.model("cart", schema);
