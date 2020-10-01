@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import BookDataService from "../services/book.service";
+import { getUserName } from "../services/auth-header";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 export default class BooksList extends Component {
@@ -11,8 +12,8 @@ export default class BooksList extends Component {
             cart: []
         };
 
-        this.addCart = this.addCart.bind(this);
-        this.addC = this.addC.bind(this);
+        this.addToCartHandler = this.addToCartHandler.bind(this);
+
         // this.cart = this.cart.bind(this);
     }
 
@@ -34,17 +35,22 @@ export default class BooksList extends Component {
             });
     }
 
-    addCart = (id) => {
-        const { books, cart } = this.state;
-        const data = books.filter(book => {
-            return book.id === id
-        })
-        this.setState({ cart: [...cart, ...data] })
-        console.log(cart);
-        // console.log(data);
-        // console.log("add");
-        // console.log(cart);
-    }
+    addToCartHandler = (id) => {
+        console.log(id);
+        axios.post(
+            `http://localhost:8080/cart/addBook?id=${id}&user=${getUserName()}`
+        ).then((res) => {
+            console.log(res.data.message);
+            if (res.data.message === true) {
+                this.props.history.push(`/cart`);
+            } else {
+                this.setState({
+                    message: `Unable to add to cart please try again later`,
+                });
+                alert(this.state.message);
+            }
+        });
+    };
 
 
     render() {
@@ -70,7 +76,7 @@ export default class BooksList extends Component {
                                         <p className="card-text"><strong>Book Description:</strong>&nbsp;{book.description}</p>
                                         <a class="btn btn-danger">Buy</a>
                                         {/* <a class="btn btn-success float-right">Add to Cart</a> */}
-                                        <button onClick={() => this.addCart(book.id)}>Add to cart</button>
+                                        <button onClick={() => this.addToCartHandler(book.id)}>Add to cart</button>
                                         {/* <Link to="/cart" className="cart">Cart</Link> */}
                                     </div>
                                 </div>

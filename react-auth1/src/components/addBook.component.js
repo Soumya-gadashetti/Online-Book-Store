@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BookDataService from "../services/book.service";
+import UserService from "../services/user.service";
 
 
 
@@ -10,18 +10,19 @@ export default class AddBook extends Component {
 
         this.onChangeCategory = this.onChangeCategory.bind(this);
         this.onChangePrice = this.onChangePrice.bind(this);
+        this.onChangeQuantity = this.onChangeQuantity.bind(this);
         this.onChangeAuthor = this.onChangeAuthor.bind(this);
         this.onChangePublisher = this.onChangePublisher.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.saveBook = this.saveBook.bind(this);
         this.newBook = this.newBook.bind(this);
-        // this.onChangeTitle = this.onChangeTitle.bind(this);
 
         this.state = {
             id: null,
             title: "",
             category: "",
             price: 0,
+            quantity: 0,
             author: "",
             publisher: "",
             description: "",
@@ -48,6 +49,12 @@ export default class AddBook extends Component {
         });
     }
 
+    onChangeQuantity(e) {
+        this.setState({
+            quantity: e.target.value
+        });
+    }
+
     onChangeAuthor(e) {
         this.setState({
             author: e.target.value
@@ -71,18 +78,20 @@ export default class AddBook extends Component {
             title: this.state.title,
             category: this.state.category,
             price: this.state.price,
+            quantity: this.state.quantity,
             author: this.state.author,
             publisher: this.state.publisher,
             description: this.state.description
         };
 
-        BookDataService.create(data)
+        UserService.create(data)
             .then(res => {
                 this.setState({
                     id: res.data.id,
                     title: res.data.title,
                     category: res.data.title,
                     price: res.data.price,
+                    quantity: res.data.quantity,
                     author: res.data.author,
                     publisher: res.data.publisher,
                     description: res.data.description,
@@ -93,6 +102,7 @@ export default class AddBook extends Component {
             .catch(e => {
                 console.log(e);
             });
+        console.log("added");
     }
 
 
@@ -102,11 +112,13 @@ export default class AddBook extends Component {
             title: "",
             category: "",
             price: 0,
+            quantity: 0,
             author: "",
             publisher: "",
             description: "",
             submitted: false
         });
+        console.log("new add");
 
     }
 
@@ -156,6 +168,18 @@ export default class AddBook extends Component {
                                     value={this.state.price}
                                     onChange={this.onChangePrice}
                                     name="price"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="title">Quantity</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="quantity"
+                                    required
+                                    value={this.state.quantity}
+                                    onChange={this.onChangeQuantity}
+                                    name="quantity"
                                 />
                             </div>
 

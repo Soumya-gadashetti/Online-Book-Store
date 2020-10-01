@@ -3,7 +3,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserService from "../services/user.service";
 import BooksList from "./book-list.component.js";
-import FullstackBooksList from "./fullstackBooksList.component";
+
 
 export default class Home extends Component {
     constructor(props) {
@@ -52,31 +52,11 @@ export default class Home extends Component {
                                 All Category Books
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to={"/fullstack"} className="nav-link">
-                                Full Stack Developer Books
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/react"} className="nav-link">
-                                Reack Books
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/java"} className="nav-link">
-                                Java Books
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/css"} className="nav-link">
-                                CSS Books
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/html"} className="nav-link">
-                                HTML Books
-                            </Link>
-                        </li>
+
+
+
+
+
                         {/* <li className="nav-item">
                             <Link to={"/add"} className="nav-link">
                                 Add
@@ -88,7 +68,7 @@ export default class Home extends Component {
                 <div className="container mt-3">
                     <Switch>
                         <Route path={["/", "/books"]} component={BooksList} />
-                        <Route path="/fullstack" component={FullstackBooksList} />
+                        {/* <Route path="/fullstack" component={FullstackBooksList} /> */}
                         {/* <Route path={["/react"]} component={ReactBooksList} />
                         <Route path={["/java"]} component={JavaBooksList} />
                         <Route path={["/css"]} component={CssBooksList} />

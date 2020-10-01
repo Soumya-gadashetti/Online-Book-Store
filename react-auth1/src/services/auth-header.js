@@ -8,3 +8,9 @@ export default function authHeader() {
         return {};
     }
 }
+
+export const getUserName = () => {
+    let user = localStorage.getItem("user");
+    console.log(user);
+    return user;
+};
