@@ -2,15 +2,18 @@ import React from "react";
 //import Auth from "../../actions/authActions";
 import Axios from "axios";
 
-import { getUserName } from "../services/auth-header";
+// import { getCurrentUser } from "../services/auth-header";
+import AuthService from "../services/auth.service";
 //import Navbar from "../layout/Navbar";
 export default class Cart extends React.Component {
+
     state = {
         searchItem: "",
         display: true,
         result: [],
         message: "",
         totalPrice: 0,
+
     };
     constructor(props) {
         super(props);
@@ -19,22 +22,29 @@ export default class Cart extends React.Component {
             message: "",
             totalPrice: 0,
             displayCart: false,
+            currentUser: AuthService.getCurrentUser()
         };
+        this.checkout = this.checkout.bind(this);
+
     }
+
     componentDidMount() {
+
         Axios.get(
-            `http://localhost:8080/cart/getCartItems?user=${getUserName()}`
+            `http://localhost:8080/cart/getCartItems?user=${this.state.currentUser.username}`
         ).then((res) => {
+            console.log(this.state.currentUser.username);
             if (res.data.message === true) {
                 this.setState({ cartItems: res.data.cartItems }, () => {
                     let sum = 0;
                     this.state.cartItems.map((cartItem) => {
-                        sum = sum + (cartItem.price);
-                        console.log("SUm");
-                        console.log(sum);
+                        // console.log(cartItem.book.price);
+                        sum = sum + cartItem.book.price;
+
                         return sum;
                     });
-                    //console.log(sum);
+
+                    // console.log(sum);
                     this.setState({ totalPrice: sum });
                     // console.log(this.state.totalAmount);
                 });
@@ -47,10 +57,17 @@ export default class Cart extends React.Component {
         this.auth.logout();
     };
 
+    checkout = () => {
+
+        // browserHistory.push("/checkout");
+        this.props.history.push("/checkout");
+        console.log("this works");
+    };
+
     decrementHandler = (id) => {
         console.log(id);
         Axios.post(
-            `http://localhost:8080/cart/dec?id=${id}&user=${getUserName()}`
+            `http://localhost:8080/cart/dec?id=${id}&user=${this.state.currentUser.username}`
         ).then((res) => {
             console.log(res.data.message);
             if (res.data.message === true) {
@@ -67,11 +84,11 @@ export default class Cart extends React.Component {
     incrementHandler = (id) => {
         console.log(id);
         Axios.post(
-            `http://localhost:8080/cart/inc?id=${id}&user=${getUserName()}`
+            `http://localhost:8080/cart/inc?id=${id}&user=${this.state.currentUser.username}`
         ).then((res) => {
             console.log(res.data.message);
             if (res.data.message === true) {
-                this.setState({ message: `increemented Successfully` });
+                this.setState({ message: `incremented Successfully` });
                 window.location.reload();
             } else {
                 this.setState({
@@ -84,11 +101,11 @@ export default class Cart extends React.Component {
     deletecartItem = (id) => {
         console.log(id);
         Axios.post(
-            `http://localhost:8080/cart/deleteBook?id=${id}&user=${getUserName()}`
+            `http://localhost:8080/cart/deleteBook?id=${id}&user=${this.state.currentUser.username}`
         ).then((res) => {
             console.log(res.data.message);
             if (res.data.message === true) {
-                this.setState({ message: `increemented Successfully` });
+                this.setState({ message: `Deleted Successfully` });
                 window.location.reload();
             } else {
                 this.setState({
@@ -104,13 +121,7 @@ export default class Cart extends React.Component {
                 <div className="row">
                     <div className="col-lg-8">
                         <p className="ml-5 mt-5">
-                            <p>
-                                {" "}
-                Pay faster for all your shopping needs{" "}
-                                <span style={{ color: "red" }}>with Store Pay balance</span>
-                                <br />
-                Get Instant refund on cancellations | Zero payment failures
-              </p>
+
                             <h3>Shopping Cart</h3>
                         </p>
 
@@ -120,7 +131,7 @@ export default class Cart extends React.Component {
                                     <th>Book Name</th>
                                     <th>Category</th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
+                                    {/* <th>Quantity</th> */}
                                     <th>Author</th>
                                     <th>Publisher</th>
 
@@ -130,11 +141,11 @@ export default class Cart extends React.Component {
 
                                 {this.state.cartItems.map((cartItem, index) => {
                                     return (
-                                        <tbody>
-                                            <td>{cartItem.book.title}</td>
+                                        <tbody key={index}>
+                                            <td><p>{cartItem.book.title}</p></td>
                                             <td>{cartItem.book.category}</td>
                                             <td>{cartItem.book.price}</td>
-                                            <td>{cartItem.book.quantity}</td>
+                                            {/* <td>{cartItem.book.quantity}</td> */}
                                             <td>{cartItem.book.author}</td>
                                             <td>{cartItem.book.publisher}</td>
 
@@ -199,32 +210,33 @@ export default class Cart extends React.Component {
                     </div>
                     <div className="col-xl-4">
                         <div className="card-custom w-75 m-5 border">
-                            <div className="card-title text-center mt-3 mb-3">
+                            {/* <div className="card-title text-center mt-3 mb-3">
                                 <i class="fa fa-shield " style={{ fontSize: "16px" }}>
                                     &nbsp; Part of your order qualifies for FREE Delivery.
                 </i>
-                            </div>
+                            </div> */}
                             <div className="card-body card-custom-bg">
                                 <div className="card-custom-bg">
                                     Subtotal ({this.state.cartItems.length} items) : ₹
                   <b>{this.state.totalPrice}</b>
                                 </div>
-                                <div class="form-check mt-2">
+                                <div className="form-check mt-2">
                                     <input
                                         type="checkbox"
                                         class="form-check-input"
                                         id="exampleCheck1"
                                     />
-                                    <label class="form-check-label" for="exampleCheck1">
+                                    {/* <label class="form-check-label" for="exampleCheck1">
                                         <p>Donate 1 ₹ – Give a Little. Change a Lot</p>
-                                    </label>
+                                    </label> */}
                                 </div>
                                 <button
-                                    className="btn btn-custom-cartbuy form-control mt-4"
+                                    className="btn btn-custom-cartbuy btn-primary form-control mt-4"
                                     type="button"
+                                    onClick={() => this.checkout()}
                                 >
-                                    Proceed to Buy
-                </button>
+                                    Buy Now
+                                </button>
                             </div>
                         </div>
                     </div>
