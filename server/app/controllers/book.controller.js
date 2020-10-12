@@ -4,7 +4,7 @@ const Book = db.books;
 // Create and Save a new Tutorial
 
 exports.create = (req, res) => {
-    // console.log(req.file);
+    console.log(req.file);
     // Validate request
     if (!req.body.title) {
         res.status(400).send({ message: "Book Title can not be empty!" });
@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         author: req.body.author,
         publisher: req.body.publisher,
         description: req.body.description,
-        // productImage: req.file.path
+        productImage: req.file.path
 
     });
 

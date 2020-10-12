@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/jfif') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -62,8 +62,8 @@ module.exports = function (app) {
         controller.adminBoard
     );
 
-    app.post("/api/books", controller1.create);
-    //  app.post("/api/books", upload.single('productImage'), controller1.create);
+    // app.post("/api/books", controller1.create);
+    app.post("/api/books", upload.single('productImage'), controller1.create);
     // app.post(
     //     "/api/books",
     //     [authJwt.verifyToken, authJwt.isAdmin],

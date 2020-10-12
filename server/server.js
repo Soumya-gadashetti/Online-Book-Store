@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -7,13 +8,13 @@ var cartroutes = require('./app/routes/cart.routes');
 var corsOptions = {
     origin: "http://localhost:8081"
 };
-
+app.use("/uploads", express.static(path.join('uploads')));
 app.use(cors(corsOptions));
 const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-    .connect('mongodb://localhost:27017/server_db', {
+    .connect('mongodb://localhost:27017/server', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

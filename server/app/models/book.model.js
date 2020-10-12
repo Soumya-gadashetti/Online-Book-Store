@@ -9,7 +9,7 @@ module.exports = mongoose => {
             author: String,
             publisher: String,
             description: String,
-            // productImage: String
+            productImage: String
         },
         { timestamps: true }
     );
