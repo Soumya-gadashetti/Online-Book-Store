@@ -14,7 +14,7 @@ export default class AddBook extends Component {
         this.onChangeAuthor = this.onChangeAuthor.bind(this);
         this.onChangePublisher = this.onChangePublisher.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        // this.onChangeImage = this.onChangeImage.bind(this);
+        this.onChangeImage = this.onChangeImage.bind(this);
         this.saveBook = this.saveBook.bind(this);
         this.newBook = this.newBook.bind(this);
 
@@ -27,6 +27,7 @@ export default class AddBook extends Component {
             author: "",
             publisher: "",
             description: "",
+            file: "",
             // productImage: "",
             // multerImage:DefaultImg,
             submitted: false
@@ -85,11 +86,11 @@ export default class AddBook extends Component {
         });
     }
 
-    // onChangeImage(e) {
-    //     this.setState({
-    //         productImage: e.target.value
-    //     });
-    // }
+    onChangeImage(e) {
+        this.setState({
+            file: e.target.files[0]
+        });
+    }
 
     //Image
     // uploadImage(e,method){
@@ -107,31 +108,46 @@ export default class AddBook extends Component {
     // }
 
     saveBook() {
-        var data = {
-            title: this.state.title,
-            category: this.state.category,
-            price: this.state.price,
-            quantity: this.state.quantity,
-            author: this.state.author,
-            publisher: this.state.publisher,
-            description: this.state.description,
-            // productImage: this.state.productImage
+        // var data = {
+        //     title: this.state.title,
+        //     category: this.state.category,
+        //     price: this.state.price,
+        //     quantity: this.state.quantity,
+        //     author: this.state.author,
+        //     publisher: this.state.publisher,
+        //     description: this.state.description,
+
+        //     };
+        const formData = new FormData();
+        // formData.append('id', this.state.id);
+        formData.append('title', this.state.title);
+        formData.append('category', this.state.category);
+        formData.append('price', this.state.price);
+        formData.append('quantity', this.state.quantity);
+        formData.append('author', this.state.author);
+        formData.append('publisher', this.state.publisher);
+        formData.append('description', this.state.description);
+        formData.append('productImage', this.state.file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         };
 
-        UserService.create(data)
+        UserService.create(formData, config)
             .then(res => {
-                this.setState({
-                    id: res.data.id,
-                    title: res.data.title,
-                    category: res.data.title,
-                    price: res.data.price,
-                    quantity: res.data.quantity,
-                    author: res.data.author,
-                    publisher: res.data.publisher,
-                    description: res.data.description,
-                    // productImage: res.file.path,
-                    submitted: true
-                });
+                // this.setState({
+                alert("The file is successfully uploaded");
+                //     title: res.formData.title,
+                //     category: res.formData.title,
+                //     price: res.formData.price,
+                //     quantity: res.formData.quantity,
+                //     author: res.formData.author,
+                //     publisher: res.formData.publisher,
+                //     description: res.formData.description,
+                //     productImage: res.formData.productImage,
+                //     submitted: true
+                // });
                 console.log(res.data);
             })
             .catch(e => {
@@ -183,7 +199,7 @@ export default class AddBook extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="title">Category</label>
+                                <label htmlFor="category">Category</label>
                                 <select
                                     type="text"
                                     className="form-control"
@@ -191,7 +207,7 @@ export default class AddBook extends Component {
                                     required
                                     value={this.state.category}
                                     onChange={this.onChangeCategory}
-                                    name="title"
+                                    name="category"
                                 >
                                     <option>Select a category</option>
                                     <option value="html">HTML</option>
@@ -201,7 +217,7 @@ export default class AddBook extends Component {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="title">Price</label>
+                                <label htmlFor="price">Price</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -213,7 +229,7 @@ export default class AddBook extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="title">Quantity</label>
+                                <label htmlFor="quantity">Quantity</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -226,7 +242,7 @@ export default class AddBook extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="title">Author</label>
+                                <label htmlFor="author">Author</label>
                                 <select
                                     type="text"
                                     className="form-control"
@@ -246,7 +262,7 @@ export default class AddBook extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="title">publisher</label>
+                                <label htmlFor="publisher">publisher</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -271,6 +287,19 @@ export default class AddBook extends Component {
                                     value={this.state.description}
                                     onChange={this.onChangeDescription}
                                     name="description"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="productImage">ProductImage</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="productImage"
+                                    required
+                                    value={this.state.productImage}
+                                    onChange={this.onChangeImage}
+                                    name="productImage"
                                 />
                             </div>
 

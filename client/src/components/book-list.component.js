@@ -75,7 +75,7 @@ export default class BookList extends Component {
 
                         <div className="card-deck col-lg-4">
                             <div className="card">
-                                {/* <img src={carousel1} className="card-img-top" alt="..." /> */}
+                                <img src={`http://localhost:8080/${book.productImage}`} className="card-img-top" alt="..." />
                                 <div className="card-body" key={index}>
 
                                     <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>
@@ -111,7 +111,7 @@ export default class BookList extends Component {
 
                     <div className="col-md-6">
                         <div className="card">
-                            {/* <img src={carousel1} className="card-img-top" alt="..." /> */}
+                            <img src={`http://localhost:8080/${book.productImage}`} className="card-img-top" alt="..." />
                             <div className="card-body" key={index}>
 
                                 <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>

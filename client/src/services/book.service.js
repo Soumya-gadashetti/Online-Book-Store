@@ -10,8 +10,8 @@ class BookDataService {
         return axios.get(`http://localhost:8080/api/books/${id}`);
     }
 
-    create(data) {
-        return axios.post("http://localhost:8080/api/books", data)
+    create(formdata) {
+        return axios.post("http://localhost:8080/api/books", formdata)
     }
     // create(data) {
     //     return http.post("/tutorials", data);
