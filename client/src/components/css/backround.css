@@ -1,0 +1,14 @@
+body {
+  font-family: 'Montserrat';
+  font-style: Italic;
+  /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTWjDKigihMY1Yr9U_XiS4vquXvrkBagbhF_g&usqp=CAU"); */
+    background-color: ghostwhite;
+ background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    opacity: 1;
+    z-index: 1;
+   
+  padding:20px;
+}

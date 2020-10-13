@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserService from "../services/user.service";
 import { Link } from "react-router-dom";
-
+import "./css/booklist.css"
 export default class BooksList extends Component {
     constructor(props) {
         super(props);
@@ -80,26 +80,7 @@ export default class BooksList extends Component {
 
         return (
             <div className="list row">
-                <div className="col-md-8">
-                    <div className="input-group mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search by title"
-                            value={searchTitle}
-                            onChange={this.onChangeSearchTitle}
-                        />
-                        <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
-                                type="button"
-                                onClick={this.searchTitle}
-                            >
-                                Search
-              </button>
-                        </div>
-                    </div>
-                </div>
+
                 <div className="col-md-6">
                     <h4>Books List</h4>
 
@@ -114,28 +95,25 @@ export default class BooksList extends Component {
                                     onClick={() => this.setActiveBook(book, index)}
                                     key={index}
                                 >
-                                    {/* {book.title} */}
+                                    <thead>
+                                        <th>Title</th>
+                                        <tb>&nbsp;&nbsp;&nbsp;{book.title}</tb>
+                                    </thead>
+                                    {/* <ul>
+                                        <li> {book.title}</li>
+                                    </ul> */}
 
-
-                                    <div className="col-md-12">
+                                    {/* <div className="col-md-6">
                                         <div className="card">
-                                            {/* <img src={carousel1} className="card-img-top" alt="..." /> */}
+                                            
                                             <div className="card-body" key={index}>
-                                                {/* <p className="card-text "><strong>Book Id:</strong>&nbsp;{book.id}</p> */}
+                                               
                                                 <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>
                                                 <p className="card-text"><strong>Book Category:</strong>&nbsp;{book.category}</p>
-                                                {/* <p className="card-text"><strong>Book Price:</strong>&nbsp;{book.price}</p>
-                                                <p className="card-text"><strong>Book Author:</strong>&nbsp;{book.author}</p>
-
-                                                <p className="card-text"><strong>Book Publisher:</strong>&nbsp;{book.publisher}</p>
-                                                <p className="card-text"><strong>Book Description:</strong>&nbsp;{book.description}</p> */}
-                                                {/* <a class="btn btn-danger">Buy</a> */}
-                                                {/* <a class="btn btn-success float-right">Add to Cart</a> */}
-                                                {/* <button onClick={() => this.addCart(book.id)}>Add to cart</button> */}
-                                                {/* <Link to="/cart" className="cart">Cart</Link> */}
+                                                
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </li>
                             ))}
                     </ul>
@@ -192,7 +170,12 @@ export default class BooksList extends Component {
                                 </label>{" "}
                                 {currentBook.description}
                             </div>
-
+                            <div>
+                                <label>
+                                    <strong>Image:</strong>
+                                </label>{" "}
+                                {currentBook.photo}
+                            </div>
 
                             <Link
                                 to={"/books/" + currentBook.id}
@@ -204,7 +187,7 @@ export default class BooksList extends Component {
                     ) : (
                             <div>
                                 <br />
-                                <p>Please click on a Tutorial...</p>
+                                <p>Please click on a Book...</p>
                             </div>
                         )}
                 </div>

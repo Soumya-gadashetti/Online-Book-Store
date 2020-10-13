@@ -24,6 +24,10 @@ import BookList from "./components/book-list.component";
 import CssBook from "./components/css.component";
 import HtmlBook from "./components/html.component";
 import AuthorSoumya from "./components/authorSoumya.component";
+import EditUser from "./components/editUser.component";
+
+
+
 class App extends Component {
 
     constructor(props) {
@@ -87,6 +91,7 @@ class App extends Component {
 
     render() {
         const { currentUser, showAdminBoard } = this.state;
+
         // const { cart } = this.context;
         return (
             <div>
@@ -102,7 +107,7 @@ class App extends Component {
                         </li>
 
                         <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Link to="" className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Category
                                 </Link>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -113,7 +118,7 @@ class App extends Component {
                         </li>
 
                         <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Link to=" " className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Author
                                 </Link>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -143,11 +148,16 @@ class App extends Component {
 
                         {showAdminBoard && (
                             <li className="nav-item">
+
                                 <Link to={"/books"} className="nav-link">
                                     Books
-              </Link>
+                                </Link>
+
                             </li>
                         )}
+
+
+
 
                         {showAdminBoard && (
                             <li className="nav-item">
@@ -169,7 +179,7 @@ class App extends Component {
 
 
 
-                        {currentUser && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/user"} className="nav-link">
                                     User
@@ -231,7 +241,9 @@ class App extends Component {
                         <Route exact path="/book" component={BookList} />
                         <Route exact path="/books" component={BooksList} />
                         <Route exact path="/books/:id" component={Book} />
-                        <Route exact path="/add" component={AddBook} />
+                        <Route exact path="/edit/:id" component={EditUser} />
+                        {/* <Route path="/add" component={AddBook} /> */}
+                        <Route path="/add" component={AddBook} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/profile" component={Profile} />

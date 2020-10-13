@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import "./css/booklist.css";
+import "./css/backround.css";
+import Carousel1 from "./carousel.js";
 import axios from 'axios';
 import AuthService from "../services/auth.service";
 export default class BookList extends Component {
@@ -31,7 +33,12 @@ export default class BookList extends Component {
 
         this.getAllBooks()
 
+
     }
+
+    // componentDidMount() {
+    //     window.location.reload();
+    // }
 
     getAllBooks = () => {
         console.log("get books");
@@ -44,6 +51,7 @@ export default class BookList extends Component {
             .catch(e => {
                 console.log(e);
             });
+        this.props.history.push("/")
 
     }
 
@@ -73,30 +81,30 @@ export default class BookList extends Component {
                 return this.state.BookList.map((book, index) => {
                     return (
 
-                        <div className="card-deck col-lg-4">
-                            <div className="card">
-                                <img src={`http://localhost:8080/${book.productImage}`} className="card-img-top" alt="..." />
+                        <div className="card-deck col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                            <div id="card1" className="card mt-4">
+                                <img src={`http://localhost:8080/${book.productImage}`}
+                                    className="card-img-top mx-auto"
+                                    style={{
+                                        height: "225px",
+                                        width: "170px",
+                                        alignItems: "center",
+                                    }} alt="book" />
                                 <div className="card-body" key={index}>
 
-                                    <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>
-                                    <p className="card-text"><strong>Book Category:</strong>&nbsp;{book.category}</p>
-                                    <p className="card-text"><strong>Book Price:</strong>&nbsp;{book.price}</p>
-                                    <p className="card-text"><strong>Book Author:</strong>&nbsp;{book.author}</p>
-
-                                    <p className="card-text"><strong>Book Publisher:</strong>&nbsp;{book.publisher}</p>
+                                    <p className="card-text font-weight-bolder "><span style={{ fontSize: '15px' }}>{book.title}</span></p>
+                                    <p className="card-text"><strong>Book Price:$</strong>&nbsp;{book.price}</p>
 
                                     {!currentUser ?
-                                        <>
-                                            <button onClick={this.goToLogin}>Add to cart</button>
-                                            <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                        </> : <>
-                                            <button onClick={() => this.addToCartHandler(book.id)}>Add to cart</button>
-                                            <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                        </>
+                                        <div className="card-footer">
+                                            <button className="fill" onClick={this.goToLogin}>Cart</button>
+                                            <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                        </div> : <div className="card-footer">
+                                            <button className="fill" onClick={() => this.addToCartHandler(book.id)}>Cart</button>
+                                            <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                        </div>
 
                                     }
-
-                                    {/* <Link to="/cart" className="cart">Cart</Link> */}
                                 </div>
                             </div>
                         </div>
@@ -109,26 +117,23 @@ export default class BookList extends Component {
             return this.state.books.map((book, index) => {
                 return (
 
-                    <div className="col-md-6">
-                        <div className="card">
-                            <img src={`http://localhost:8080/${book.productImage}`} className="card-img-top" alt="..." />
+                    <div className="card-deck col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                        <div id="card1" className="card mt-4">
+                            {/* <img src={carousel1} className="card-img-top" alt="..." /> */}
+                            <img src={`http://localhost:8080/${book.productImage}`} style={{ height: "100px" }} alt="book" />
                             <div className="card-body" key={index}>
 
-                                <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>
-                                <p className="card-text"><strong>Book Category:</strong>&nbsp;{book.category}</p>
-                                <p className="card-text"><strong>Book Price:</strong>&nbsp;{book.price}</p>
-                                <p className="card-text"><strong>Book Author:</strong>&nbsp;{book.author}</p>
-
-                                <p className="card-text"><strong>Book Publisher:</strong>&nbsp;{book.publisher}</p>
+                                <p className="card-text font-weight-bolder "><span style={{ fontSize: '15px' }}>{book.title}</span></p>
+                                <p className="card-text"><strong>Book Price:$</strong>&nbsp;{book.price}</p>
 
                                 {!currentUser ?
-                                    <>
-                                        <button onClick={this.goToLogin}>Add to cart</button>
-                                        <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                    </> : <>
-                                        <button onClick={() => this.addToCartHandler(book.id)}>Add to cart</button>
-                                        <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                    </>
+                                    <div className="card-footer">
+                                        <button className="fill" onClick={this.goToLogin}>Cart</button>
+                                        <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                    </div> : <div className="card-footer">
+                                        <button className="fill" onClick={() => this.addToCartHandler(book.id)}>Cart</button>
+                                        <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                    </div>
 
                                 }
 
@@ -147,7 +152,7 @@ export default class BookList extends Component {
     addToCartHandler = (id) => {
         console.log(id);
         axios.post(
-            `http://localhost:8080/cart/addBook?id=${id}&user=${this.state.currentUser.username}`
+            `http://localhost:8080/cart/addBook?id=${id}&username=${this.state.currentUser.username}`
         ).then((res) => {
             console.log(this.state.currentUser.username);
             console.log(res.data.message);
@@ -176,15 +181,47 @@ export default class BookList extends Component {
 
     render() {
         console.log(this.state);
+
         return (
 
-            <div className="container">
-                <input type="text" name="search" placeholder="Search by author,title and category" onChange={this.search} />&ensp;
-                <div className="row">
-
-                    {this.renderAllProducts()}
+            <div className="container-fluid">
+                <div id="marquee">
+                    <marquee behavior="scroll" direction="left"><b>Welcome To Online Book Store</b></marquee>
                 </div>
+                <div className="container-fluid">
+                    <div className="search" style={{ float: "center" }}>
+                        <input type="text" style={{ marginLeft: "20%", marginBottom: "5%" }} name="search" placeholder="Search by author,title and category" onChange={this.search} />&ensp;
+                    </div>
+
+
+
+                    <Carousel1 />
+
+
+
+                    {/* <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-4">
+
+                            </div>
+                            <div className="col-8">
+                                {this.renderAllProducts()}
+                            </div>
+                        </div>
+                    </div> */}
+                    <div className="row" style={{ marginLeft: "5%" }}>
+
+                        {this.renderAllProducts()}
+                    </div>
+                </div>
+                <footer className="bg-dark-custom fixed-bottom bg-dark">
+                    <div className=" text-center text-muted">
+                        <span> © 2020 Copyright: onlineBookStore.com</span>
+                    </div>
+                </footer>
             </div>
+
+
         )
     }
 }
@@ -192,177 +229,3 @@ export default class BookList extends Component {
 
 
 
-//     constructor(props) {
-//         super(props);
-//         this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-//         this.retrieveBooks = this.retrieveBooks.bind(this);
-//         this.refreshList = this.refreshList.bind(this);
-//         this.setActiveBook = this.setActiveBook.bind(this);
-//         this.removeAllBooks = this.removeAllBooks.bind(this);
-//         this.searchTitle = this.searchTitle.bind(this);
-
-//         this.state = {
-//             books: [],
-//             currentBook: null,
-//             currentIndex: -1,
-//             searchTitle: ""
-//         };
-//     }
-
-//     componentDidMount() {
-//         this.retrieveBooks();
-//     }
-
-//     onChangeSearchTitle(e) {
-//         const searchTitle = e.target.value;
-
-//         this.setState({
-//             searchTitle: searchTitle
-//         });
-//     }
-
-//     retrieveBooks() {
-//         BookDataService.getAll()
-//             .then(response => {
-//                 this.setState({
-//                     books: response.data
-//                 });
-//                 console.log(response.data);
-//             })
-//             .catch(e => {
-//                 console.log(e);
-//             });
-//     }
-
-//     refreshList() {
-//         this.retrieveBooks();
-//         this.setState({
-//             currentBook: null,
-//             currentIndex: -1
-//         });
-//     }
-
-//     setActiveBook(book, index) {
-//         this.setState({
-//             currentBook: book,
-//             currentIndex: index
-//         });
-//     }
-
-//     removeAllBooks() {
-//         BookDataService.deleteAll()
-//             .then(response => {
-//                 console.log(response.data);
-//                 this.refreshList();
-//             })
-//             .catch(e => {
-//                 console.log(e);
-//             });
-//     }
-
-//     searchTitle() {
-//         BookDataService.findByTitle(this.state.searchTitle)
-//             .then(response => {
-//                 this.setState({
-//                     books: response.data
-//                 });
-//                 console.log(response.data);
-//             })
-//             .catch(e => {
-//                 console.log(e);
-//             });
-//     }
-
-//     render() {
-//         const { searchTitle, books, currentBook, currentIndex } = this.state;
-
-//         return (
-//             <div className="list row">
-//                 <div className="col-md-8">
-//                     <div className="input-group mb-3">
-//                         <h3>Book List</h3>
-//                         <input
-//                             type="text"
-//                             className="form-control"
-//                             placeholder="Search by title"
-//                             value={searchTitle}
-//                             onChange={this.onChangeSearchTitle}
-//                         />
-//                         <div className="input-group-append">
-//                             <button
-//                                 className="btn btn-outline-secondary"
-//                                 type="button"
-//                                 onClick={this.searchTitle}
-//                             >
-//                                 Search
-//               </button>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="col-md-6">
-//                     <h4>Books List</h4>
-
-//                     <ul className="list-group">
-//                         {books &&
-//                             books.map((book, index) => (
-//                                 <li
-//                                     className={
-//                                         "list-group-item " +
-//                                         (index === currentIndex ? "active" : "")
-//                                     }
-//                                     onClick={() => this.setActiveTutorial(book, index)}
-//                                     key={index}
-//                                 >
-//                                     {book.title}
-//                                 </li>
-//                             ))}
-//                     </ul>
-
-//                     <button
-//                         className="m-3 btn btn-sm btn-danger"
-//                         onClick={this.removeAllBooks}
-//                     >
-//                         Remove All
-//           </button>
-//                 </div>
-//                 <div className="col-md-6">
-//                     {currentBook ? (
-//                         <div>
-//                             <h4>Book</h4>
-//                             <div>
-//                                 <label>
-//                                     <strong>Title:</strong>
-//                                 </label>{" "}
-//                                 {currentBook.title}
-//                             </div>
-//                             <div>
-//                                 <label>
-//                                     <strong>Description:</strong>
-//                                 </label>{" "}
-//                                 {currentBook.description}
-//                             </div>
-//                             {/* <div>
-//                                 <label>
-//                                     <strong>Status:</strong>
-//                                 </label>{" "}
-//                                 {currentTutorial.published ? "Published" : "Pending"}
-//                             </div> */}
-
-//                             <Link
-//                                 to={"/books/" + currentBook.id}
-//                                 className="badge badge-warning"
-//                             >
-//                                 Edit
-//               </Link>
-//                         </div>
-//                     ) : (
-//                             <div>
-//                                 <br />
-//                                 <p>Please click on a Book</p>
-//                             </div>
-//                         )}
-//                 </div>
-//             </div>
-//         );
-//     }
-// }}

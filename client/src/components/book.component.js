@@ -12,6 +12,7 @@ export default class Book extends Component {
         this.onChangeAuthor = this.onChangeAuthor.bind(this);
         this.onChangePublisher = this.onChangePublisher.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangePhoto = this.onChangePhoto.bind(this);
         this.getBook = this.getBook.bind(this);
         // this.updatePublished = this.updatePublished.bind(this);
         this.updateBook = this.updateBook.bind(this);
@@ -27,6 +28,7 @@ export default class Book extends Component {
                 author: "",
                 publisher: "",
                 description: "",
+                photo: "",
                 published: false
             },
             message: ""
@@ -116,6 +118,17 @@ export default class Book extends Component {
         }));
     }
 
+    onChangePhoto(e) {
+        const photo = e.target.value;
+
+        this.setState(prevState => ({
+            currentBook: {
+                ...prevState.currentBook,
+                photo: photo
+            }
+        }));
+    }
+
     getBook(id) {
         UserService.get(id)
             .then(res => {
@@ -139,12 +152,14 @@ export default class Book extends Component {
             .then(res => {
                 console.log(res.data);
                 this.setState({
-                    message: "The Book was updated successfully!"
+                    message: alert("The Book got updated successfully")
                 });
             })
+
             .catch(e => {
                 console.log(e);
             });
+        this.props.history.push("/books")
     }
 
     deleteBook() {
@@ -153,12 +168,14 @@ export default class Book extends Component {
                 console.log(res.data);
                 this.setState({
                     message: alert("The Book got deleted successfully")
+
                 });
-                // this.props.history.push('/books')
+
             })
             .catch(e => {
                 console.log(e);
             });
+        this.props.history.push('/books')
     }
 
     goBack() {
@@ -252,6 +269,17 @@ export default class Book extends Component {
                                     id="description"
                                     value={currentBook.description}
                                     onChange={this.onChangeDescription}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="description">Image</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="photo"
+                                    value={currentBook.photo}
+                                    onChange={this.onChangePhoto}
                                 />
                             </div>
 

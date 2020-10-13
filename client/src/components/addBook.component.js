@@ -15,6 +15,7 @@ export default class AddBook extends Component {
         this.onChangePublisher = this.onChangePublisher.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeImage = this.onChangeImage.bind(this);
+        // this.onChangePhoto = this.onChangePhoto.bind(this);
         this.saveBook = this.saveBook.bind(this);
         this.newBook = this.newBook.bind(this);
 
@@ -92,6 +93,12 @@ export default class AddBook extends Component {
         });
     }
 
+    // onChangeImage(e) {
+    //     this.setState({
+    //         productImage: e.target.value
+    //     });
+    // }
+
     //Image
     // uploadImage(e,method){
     //     let imgObj ={};
@@ -107,6 +114,10 @@ export default class AddBook extends Component {
     //     }
     // }
 
+    // componentDidMount() {
+    //     this.saveBook();
+    // }
+
     saveBook() {
         // var data = {
         //     title: this.state.title,
@@ -116,8 +127,9 @@ export default class AddBook extends Component {
         //     author: this.state.author,
         //     publisher: this.state.publisher,
         //     description: this.state.description,
+        //     photo: this.state.photo,
 
-        //     };
+        // };
         const formData = new FormData();
         // formData.append('id', this.state.id);
         formData.append('title', this.state.title);
@@ -137,22 +149,25 @@ export default class AddBook extends Component {
         UserService.create(formData, config)
             .then(res => {
                 // this.setState({
-                alert("The file is successfully uploaded");
-                //     title: res.formData.title,
-                //     category: res.formData.title,
-                //     price: res.formData.price,
-                //     quantity: res.formData.quantity,
-                //     author: res.formData.author,
-                //     publisher: res.formData.publisher,
-                //     description: res.formData.description,
-                //     productImage: res.formData.productImage,
+                //     id: res.data.id,
+                //     title: res.data.title,
+                //     category: res.data.title,
+                //     price: res.data.price,
+                //     quantity: res.data.quantity,
+                //     author: res.data.author,
+                //     publisher: res.data.publisher,
+                //     description: res.data.description,
+                //     photo: res.data.photo,
+                //     // productImage: res.file.path,
                 //     submitted: true
                 // });
+                alert("The file is successfully uploaded");
                 console.log(res.data);
             })
             .catch(e => {
                 console.log(e);
             });
+        this.props.history.push("/")
         console.log("added");
     }
 
@@ -170,139 +185,165 @@ export default class AddBook extends Component {
         //     submitted: false
         // });
         // console.log("new add");
-        this.props.history.push("/add");
+        this.props.history.push("/books");
         console.log("this works");
     }
 
     render() {
+        const text = {
+            width: "100%"
+        }
         return (
             <div className="submit-form">
                 {this.state.submitted ? (
                     <div>
                         <h4>You submitted successfully!</h4>
                         <button className="btn btn-success" onClick={this.newBook}>
-                            Click on Add Products to add more books
+                            Click to go back
                         </button>
                     </div>
                 ) : (
-                        <div>
-                            <div className="form-group">
-                                <label htmlFor="title">Title</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="title"
-                                    required
-                                    value={this.state.title}
-                                    onChange={this.onChangeTitle}
-                                    name="title"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="category">Category</label>
-                                <select
-                                    type="text"
-                                    className="form-control"
-                                    id="category"
-                                    required
-                                    value={this.state.category}
-                                    onChange={this.onChangeCategory}
-                                    name="category"
-                                >
-                                    <option>Select a category</option>
-                                    <option value="html">HTML</option>
-                                    <option value="css">CSS</option>
-                                    <option value="react">React</option>
-                                    <option value="full stack developer">Full Stack Developer</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="price">Price</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="price"
-                                    required
-                                    value={this.state.price}
-                                    onChange={this.onChangePrice}
-                                    name="price"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="quantity">Quantity</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="quantity"
-                                    required
-                                    value={this.state.quantity}
-                                    onChange={this.onChangeQuantity}
-                                    name="quantity"
-                                />
-                            </div>
+                        <div className="addForm" style={{ marginLeft: "20%", border: "1px solid black", marginRight: "20%", width: "60%" }}>
 
-                            <div className="form-group">
-                                <label htmlFor="author">Author</label>
-                                <select
-                                    type="text"
-                                    className="form-control"
-                                    id="author"
-                                    required
-                                    value={this.state.author}
-                                    onChange={this.onChangeAuthor}
-                                    name="author"
-                                >
-                                    <option >Select an auther</option>
-                                    <option value="Soumya Gadashetti" >Soumya</option>
-                                    <option value="Meena Chowdary">Meena Chowdary</option>
-                                    <option value="Chetan Bhagat">Chethan Bhagat</option>
-
-                                </select>
-
+                            <div><h2>Add a book</h2></div>
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">Title</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="title"
+                                        required
+                                        value={this.state.title}
+                                        onChange={this.onChangeTitle}
+                                        name="title"
+                                        style={text}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">Category</label>
+                                    <select
+                                        type="text"
+                                        className="form-control"
+                                        id="category"
+                                        required
+                                        value={this.state.category}
+                                        onChange={this.onChangeCategory}
+                                        name="title"
+                                        style={text}
+                                    >
+                                        <option>Select a category</option>
+                                        <option value="html">HTML</option>
+                                        <option value="css">CSS</option>
+                                        <option value="react">React</option>
+                                        <option value="full stack developer">Full Stack Developer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">Price</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="price"
+                                        required
+                                        value={this.state.price}
+                                        onChange={this.onChangePrice}
+                                        name="price"
+                                        style={text}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="publisher">publisher</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="publisher"
-                                    required
-                                    value={this.state.publisher}
-                                    onChange={this.onChangePublisher}
-                                    name="publisher"
-                                />
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">Quantity</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="quantity"
+                                        required
+                                        value={this.state.quantity}
+                                        onChange={this.onChangeQuantity}
+                                        name="quantity"
+                                        style={text}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">Author</label>
+                                    <select
+                                        type="text"
+                                        className="form-control"
+                                        id="author"
+                                        required
+                                        value={this.state.author}
+                                        onChange={this.onChangeAuthor}
+                                        name="author"
+                                        style={text}
+                                    >
+                                        <option >Select an auther</option>
+                                        <option value="Soumya Gadashetti" >Soumya</option>
+                                        <option value="Meena Chowdary">Meena Chowdary</option>
+                                        <option value="Chetan Bhagat">Chethan Bhagat</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="title">publisher</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="publisher"
+                                        required
+                                        value={this.state.publisher}
+                                        onChange={this.onChangePublisher}
+                                        name="publisher"
+                                        style={text}
+                                    />
+                                </div>
                             </div>
 
 
-
-
-                            <div className="form-group">
-                                <label htmlFor="description">Description</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="description"
-                                    required
-                                    value={this.state.description}
-                                    onChange={this.onChangeDescription}
-                                    name="description"
-                                />
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="description">Description</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="description"
+                                        required
+                                        value={this.state.description}
+                                        onChange={this.onChangeDescription}
+                                        name="description"
+                                        style={text}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="productImage">ProductImage</label>
-                                <input
-                                    type="file"
-                                    className="form-control"
-                                    id="productImage"
-                                    required
-                                    value={this.state.productImage}
-                                    onChange={this.onChangeImage}
-                                    name="productImage"
-                                />
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="productImage">ProductImage</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        id="productImage"
+                                        required
+                                        value={this.state.productImage}
+                                        onChange={this.onChangeImage}
+                                        name="productImage"
+                                    />
+                                </div>
                             </div>
-
 
                             <button onClick={this.saveBook} className="btn btn-success">
                                 Submit

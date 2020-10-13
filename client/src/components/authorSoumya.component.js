@@ -43,7 +43,7 @@ export default class AuthorSoumya extends Component {
     addToCartHandler = (id) => {
         console.log(id);
         axios.post(
-            `http://localhost:8080/cart/addBook?id=${id}&user=${this.state.currentUser.username}`
+            `http://localhost:8080/cart/addBook?id=${id}&username=${this.state.currentUser.username}`
         ).then((res) => {
             console.log(this.state.currentUser.username);
             console.log(res.data.message);
@@ -85,34 +85,30 @@ export default class AuthorSoumya extends Component {
                     {this.state.books.map((book, index) => {
                         return (
 
-                            <div className="col-md-6" key={index}>
-                                <div className="card">
-                                    {/* <img src={carousel1} className="card-img-top" alt="..." /> */}
+                            <div className="card-deck col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-7">
+                                <div id="card1" className="card mt-4">
+                                    <img src={`http://localhost:8080/${book.productImage}`}
+                                        className="card-img-top mx-auto"
+                                        style={{
+                                            height: "225px",
+                                            width: "170px",
+                                            alignItems: "center",
+                                        }} alt="book" />
                                     <div className="card-body" key={index}>
-                                        {/* <p className="card-text "><strong>Book Id:</strong>&nbsp;{book.id}</p> */}
-                                        {/* <img src={book.productImage} alt="book"></img> */}
-                                        {/* <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.productImage}</p> */}
-                                        <p className="card-text "><strong>Book Title:</strong>&nbsp;{book.title}</p>
-                                        <p className="card-text"><strong>Book Category:</strong>&nbsp;{book.category}</p>
-                                        <p className="card-text"><strong>Book Price:</strong>&nbsp;{book.price}</p>
-                                        <p className="card-text"><strong>Book Author:</strong>&nbsp;{book.author}</p>
 
-                                        <p className="card-text"><strong>Book Publisher:</strong>&nbsp;{book.publisher}</p>
-                                        {/* <p className="card-text"><strong>Book Description:</strong>&nbsp;{book.description}</p> */}
-                                        {/* <a className="btn btn-danger">Buy</a> */}
-                                        {/* <a class="btn btn-success float-right">Add to Cart</a> */}
+                                        <p className="card-text font-weight-bolder "><span style={{ fontSize: '15px' }}>{book.title}</span></p>
+                                        <p className="card-text"><strong>Book Price:$</strong>&nbsp;{book.price}</p>
+
                                         {!currentUser ?
-                                            <>
-                                                <button onClick={this.goToLogin}>Add to cart</button>
-                                                <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                            </> : <>
-                                                <button onClick={() => this.addToCartHandler(book.id)}>Add to cart</button>
-                                                <button onClick={() => this.viewDetail(book.id)}>View Details</button>
-                                            </>
+                                            <div className="card-footer">
+                                                <button className="fill" onClick={this.goToLogin}>Cart</button>
+                                                <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                            </div> : <div className="card-footer">
+                                                <button className="fill" onClick={() => this.addToCartHandler(book.id)}>Cart</button>
+                                                <button className="fill" onClick={() => this.viewDetail(book.id)}>View</button>
+                                            </div>
 
                                         }
-
-                                        {/* <Link to="/cart" className="cart">Cart</Link> */}
                                     </div>
                                 </div>
                             </div>

@@ -1,48 +1,63 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
-
+import { Link } from "react-router-dom";
 export default class Profile extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             currentUser: AuthService.getCurrentUser()
+
         };
+
+        this.editUser = this.editUser.bind(this);
     }
 
+    editUser = (id) => {
+        console.log(id);
+    }
     render() {
         const { currentUser } = this.state;
 
         return (
             <div className="container">
-                {/* <header className="jumbotron">
-                    <h3>
-                        Welcome <strong>{currentUser.username}</strong>
-                    </h3>
-                </header> */}
+                <div className="col-md-6">
+                    <div>
+                        <label>
+                            <strong>User Name:</strong>
+                        </label>{" "}
+                        {currentUser.username}
+                    </div>
+
+                    <div>
+                        <label>
+                            <strong> User Email:</strong>
+                        </label>{" "}
+                        {currentUser.email}
+                    </div>
+                </div>
+
+
                 {/* <p>
-                    <strong>Token:</strong>{" "}
-                    {currentUser.accessToken.substring(0, 20)} ...{" "}
-                    {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-                </p> */}
-                {/* <p>
-                    <strong>Id:</strong>{" "}
-                    {currentUser.id}
-                </p> */}
-                <p>
                     <strong>UserName:</strong>{" "}
                     {currentUser.username}
-                </p>
-                <p>
+                </p> */}
+                {/* <p>
                     <strong>Email:</strong>{" "}
                     {currentUser.email}
-                </p>
-                <strong>User:</strong>
-                <ul>
-                    {currentUser.roles &&
-                        currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                </ul>
+                </p> */}
+                <Link
+                    to={"/edit/" + currentUser.id}
+                    className="badge badge-warning"
+                >
+                    Edit
+              </Link>
+
+
+
             </div>
         );
     }
 }
+
+
