@@ -190,25 +190,9 @@ export default class BookList extends Component {
                 </div>
                 <div className="container-fluid">
                     <div className="search" style={{ float: "center" }}>
-                        <input type="text" style={{ marginLeft: "20%", marginBottom: "5%" }} name="search" placeholder="Search by author,title and category" onChange={this.search} />&ensp;
+                        <input type="text" style={{ marginLeft: "20%" }} name="search" placeholder="Search by author,title and category" onChange={this.search} />&ensp;
                     </div>
-
-
-
                     <Carousel1 />
-
-
-
-                    {/* <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-4">
-
-                            </div>
-                            <div className="col-8">
-                                {this.renderAllProducts()}
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="row" style={{ marginLeft: "5%" }}>
 
                         {this.renderAllProducts()}

@@ -36,29 +36,7 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                {/* <nav className="navbar navbar-expand  ">
 
-                    <div className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <button onClick={this.allBook}>All Category Books</button>
-                        </li>
-
-                        <li className="nav-item">
-                            <button onClick={this.allCss}>CSS Books</button>
-                        </li>
-                        <li className="nav-item">
-                            <button onClick={this.allHtml}>HTML Books</button>
-                        </li>
-                        <li className="nav-item">
-                            <button onClick={this.authorSoumya}>Author Soumya</button>
-                        </li>
-
-
-
-
-
-                    </div>
-                </nav> */}
 
                 <div className="container mt-3">
                     <Switch>

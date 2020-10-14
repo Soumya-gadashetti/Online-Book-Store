@@ -76,7 +76,7 @@ export default class BooksList extends Component {
     }
 
     render() {
-        const { searchTitle, books, currentBook, currentIndex } = this.state;
+        const { books, currentBook, currentIndex } = this.state;
 
         return (
             <div className="list row">

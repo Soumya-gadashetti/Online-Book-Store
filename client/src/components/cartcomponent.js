@@ -4,7 +4,7 @@ import Axios from "axios";
 
 // import { getCurrentUser } from "../services/auth-header";
 import AuthService from "../services/auth.service";
-import { withRouter } from "react-router";
+// import { withRouter } from "react-router";
 //import Navbar from "../layout/Navbar";
 export default class Cart extends React.Component {
 
@@ -178,20 +178,38 @@ export default class Cart extends React.Component {
                                                         <td>
                                                             <div className="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span
-                                                                        className="input-group-text"
-                                                                        type="button"
-                                                                        onClick={() =>
-                                                                            this.decrementHandler(cartItem.book._id)
-                                                                        }
-                                                                    >
-                                                                        <b>-</b>
-                                                                    </span>
+                                                                    {cartItem.quantity === 1 ?
+                                                                        <span
+                                                                            className="input-group-text"
+                                                                            type="button"
+                                                                            disabled={true}
+                                                                            style={{ cursor: "not-allowed" }}
+
+                                                                            onClick={() =>
+                                                                                this.decrementHandler(cartItem.book._id)
+                                                                            }
+                                                                        >
+                                                                            <b>-</b>
+                                                                        </span> :
+                                                                        <span
+                                                                            className="input-group-text"
+                                                                            type="button"
+
+                                                                            onClick={() =>
+                                                                                this.decrementHandler(cartItem.book._id)
+                                                                            }
+                                                                        >
+                                                                            <b>-</b>
+                                                                        </span>
+                                                                    }
+
+
                                                                 </div>
 
                                                                 <input
                                                                     type="text"
                                                                     className="border-0 text-center "
+                                                                    min="1"
                                                                     value={cartItem.quantity}
                                                                     style={{ width: "35px" }}
                                                                 />
@@ -199,6 +217,7 @@ export default class Cart extends React.Component {
                                                                     <span
                                                                         className="input-group-text"
                                                                         type="button"
+                                                                        min="1"
                                                                         onClick={() =>
                                                                             this.incrementHandler(cartItem.book._id)
                                                                         }

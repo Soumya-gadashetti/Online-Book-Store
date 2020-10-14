@@ -12,7 +12,7 @@ export default class Book extends Component {
         this.onChangeAuthor = this.onChangeAuthor.bind(this);
         this.onChangePublisher = this.onChangePublisher.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangePhoto = this.onChangePhoto.bind(this);
+        // this.onChangePhoto = this.onChangePhoto.bind(this);
         this.getBook = this.getBook.bind(this);
         // this.updatePublished = this.updatePublished.bind(this);
         this.updateBook = this.updateBook.bind(this);
@@ -28,7 +28,7 @@ export default class Book extends Component {
                 author: "",
                 publisher: "",
                 description: "",
-                photo: "",
+                // photo: "",
                 published: false
             },
             message: ""
@@ -118,16 +118,16 @@ export default class Book extends Component {
         }));
     }
 
-    onChangePhoto(e) {
-        const photo = e.target.value;
+    // onChangePhoto(e) {
+    //     const photo = e.target.value;
 
-        this.setState(prevState => ({
-            currentBook: {
-                ...prevState.currentBook,
-                photo: photo
-            }
-        }));
-    }
+    //     this.setState(prevState => ({
+    //         currentBook: {
+    //             ...prevState.currentBook,
+    //             photo: photo
+    //         }
+    //     }));
+    // }
 
     getBook(id) {
         UserService.get(id)
@@ -272,16 +272,7 @@ export default class Book extends Component {
                                 />
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="description">Image</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="photo"
-                                    value={currentBook.photo}
-                                    onChange={this.onChangePhoto}
-                                />
-                            </div>
+                            {/*  */}
 
                             {/* <div className="form-group">
                                 <label>

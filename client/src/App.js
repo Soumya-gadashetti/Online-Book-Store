@@ -25,7 +25,7 @@ import CssBook from "./components/css.component";
 import HtmlBook from "./components/html.component";
 import AuthorSoumya from "./components/authorSoumya.component";
 import EditUser from "./components/editUser.component";
-
+import Footer from "./components/footer.component.js";
 
 
 class App extends Component {
@@ -260,6 +260,10 @@ class App extends Component {
                         {/* <Route path="/full" component={FullstackBooksList} /> */}
                     </Switch>
                 </div>
+
+                <br /><br /><br /><br /><br /><br />
+                <Footer />
+
             </div>
         );
     }

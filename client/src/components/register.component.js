@@ -46,6 +46,18 @@ const vpassword = value => {
     }
 };
 
+// const role = value => {
+//     if ((!value === "admin") || (!value === "user")) {
+//         return (
+//             <div className="alert alert-danger" role="alert">
+//                 Enter user or admin
+//             </div>
+//         );
+//     }
+// };
+
+
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -53,12 +65,12 @@ export default class Register extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        // this.onChangeRole = this.onChangeRole.bind(this);
+        this.onChangeRole = this.onChangeRole.bind(this);
         this.state = {
             username: "",
             email: "",
             password: "",
-            // roles: "",
+            roles: { name: "" },
             successful: false,
             message: ""
         };
@@ -83,11 +95,11 @@ export default class Register extends Component {
         });
     }
 
-    // onChangeRole(e) {
-    //     this.setState({
-    //         roles: e.target.value
-    //     });
-    // }
+    onChangeRole(e) {
+        this.setState({
+            roles: e.target.value
+        });
+    }
 
     handleRegister(e) {
         e.preventDefault();
@@ -104,7 +116,7 @@ export default class Register extends Component {
                 this.state.username,
                 this.state.email,
                 this.state.password,
-                this.state.roles,
+                this.state.roles.name,
             ).then(
                 response => {
                     this.setState({
@@ -184,15 +196,15 @@ export default class Register extends Component {
                                 </div>
 
                                 {/* <div className="form-group">
-                                    <label htmlFor="password">Role</label>
+                                    <label htmlFor="roles">Role</label>
                                     <Input
-                                        type="password"
+                                        type="text"
                                         className="form-control"
                                         name="roles"
                                         id="roles"
-                                        value={this.state.roles}
+                                        value={this.state.roles.name}
                                         onChange={this.onChangeRole}
-                                   
+                                        validations={[required, role]}
                                     />
                                 </div> */}
 

@@ -10,8 +10,9 @@ vertical-align {
 } */
 #wrapper {
   width: 600px;
+    height: 20%;
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 3%;
 background: #16A085;
 }
 h1 {

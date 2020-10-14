@@ -22,6 +22,8 @@ const EditUser = () => {
         loadUser();
     }, []);
 
+
+
     const onSubmit = async e => {
         e.preventDefault();
         await axios.put(`http://localhost:8080/api/update/user/${id}`, user);

@@ -1,22 +1,21 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel"
-import co from '../images/co.jpeg';
-import c2 from "../images/c2.jpg";
-import c3 from "../images/c3.jpg";
+
 import "./css/booklist.css";
 class Carousel1 extends React.Component {
     render() {
         return (
             <body>
-                <div className="jumbotron">
 
 
-                    {/* <Carousel>
+
+                <Carousel>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src={c3}
+
+                            src="images/coro4.png"
                             alt="First slide"
                         />
 
@@ -24,15 +23,14 @@ class Carousel1 extends React.Component {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src={c2}
+
+                            src="images/coro1.png"
                             alt="Third slide"
                         />
-
-
                     </Carousel.Item>
 
-                </Carousel> */}
-                </div>
+                </Carousel>
+
             </body>
             // <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
             //     <ol className="carousel-indicators">

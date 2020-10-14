@@ -39,8 +39,8 @@ export default class Payment extends Component {
 
     handleChange = (event) => {
         event.preventDefault();
-        const { id, value } = event.target;
-        let errors = this.state.errors;
+        // const { id, value } = event.target;
+        // let errors = this.state.errors;
         // switch (id) {
         //     case "fname":
         //         errors.fname = fname.test(value) ? "" : "fname is not valid!";
@@ -105,7 +105,7 @@ export default class Payment extends Component {
     }
     render() {
         //console.log(this.state.totalAmount);
-        const { errors } = this.state;
+        // const { errors } = this.state;
         return (
             <div className="container content">
                 <div className="row ">
@@ -142,7 +142,7 @@ export default class Payment extends Component {
                                                 <input
                                                     type="password"
                                                     className="form-control"
-                                                    id="lnam"
+                                                    id="lname"
                                                     placeholder="last name"
                                                     required
                                                     onChange={this.handleChange}
